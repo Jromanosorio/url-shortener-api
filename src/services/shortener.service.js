@@ -19,6 +19,12 @@ const shortenerService = async(longLink) => {
     return {data: newShortedData, shortCode}
 }
 
+const getLongUrl = async(code) => {
+    const data = await urlModel.findOne({short: code})
+    return data ? data.link : null
+}
+
 export { 
-    shortenerService
+    shortenerService,
+    getLongUrl
 }

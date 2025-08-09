@@ -1,5 +1,5 @@
 import urlModel from "../models/Url.js"
-import { shortenerService } from "../services/shortener.service.js"
+import { getLongUrl, shortenerService } from "../services/shortener.service.js"
 import { generator } from "../utils/generator.js"
 
 const saveUrl = async (req, res) => {
@@ -13,6 +13,24 @@ const saveUrl = async (req, res) => {
     })
 }
 
+const redirectLink = async (req, res) => {
+    const { code } = req.params;
+    
+    try {
+        const originalLink = await getLongUrl(code)
+
+        if(!originalLink){
+            return res.json({error: 'URL no encontrado'})
+        }
+
+        return res.redirect(originalLink)
+
+    } catch (error) {
+        return res.json({error: 'Error al redirigir'})
+    }
+}
+
 export {
-    saveUrl
+    saveUrl,
+    redirectLink
 }

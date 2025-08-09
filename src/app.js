@@ -1,6 +1,7 @@
 import express from 'express'
 import { shortenerRouter } from './routes/shortener.js'
 import { connectDB } from './config/db.js'
+import { redirectLink } from './controllers/shortener.controller.js'
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -14,6 +15,8 @@ connectDB()
 app.get('/ping', (req, res) => {
     return res.json({message: 'pong'})
 })
+
+app.get('/:code', redirectLink)
 
 app.use('/api', shortenerRouter)
 
