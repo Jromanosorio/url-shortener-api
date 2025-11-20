@@ -1,11 +1,9 @@
-import urlModel from "../models/Url.js"
 import { getLongUrl, shortenerService } from "../services/shortener.service.js"
-import { generator } from "../utils/generator.js"
 
 const saveUrl = async (req, res) => {
     const { link } = req.body
 
-    const { data, shortCode } = await shortenerService(link)
+    const { data, shortCode } = await shortenerService(link.trim())
 
     return res.json({
         data, 

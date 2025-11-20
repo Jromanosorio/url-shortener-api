@@ -3,14 +3,21 @@ import { shortenerRouter } from './routes/shortener.js'
 import { connectDB } from './config/db.js'
 import { redirectLink } from './controllers/shortener.controller.js'
 const app = express()
+import cors from 'cors'
+
+import dotenv from 'dotenv';
+dotenv.config()
+
 const PORT = process.env.PORT || 3000
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+app.use(cors())
+
 connectDB()
 .then(() => console.log('conectado a la base de datos'))
-.catch(() => console.log('ha ocurrido un error'))
+.catch((error) => console.log('ha ocurrido un error', error))
 
 app.get('/ping', (req, res) => {
     return res.json({message: 'pong'})
