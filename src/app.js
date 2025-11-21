@@ -1,13 +1,14 @@
 import 'dotenv/config'
 
 import express from 'express'
+import cors from 'cors'
+
 import { shortenerRouter } from './routes/shortener.js'
 import { connectDB } from './config/db.js'
 import { mailRouter } from './routes/mail.js'
 import { redirectLink } from './controllers/shortener.controller.js'
 
 const app = express()
-import cors from 'cors'
 
 const PORT = process.env.PORT || 3000
 
