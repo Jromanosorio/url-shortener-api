@@ -1,12 +1,13 @@
+import 'dotenv/config'
+
 import express from 'express'
 import { shortenerRouter } from './routes/shortener.js'
 import { connectDB } from './config/db.js'
+import { mailRouter } from './routes/mail.js'
 import { redirectLink } from './controllers/shortener.controller.js'
+
 const app = express()
 import cors from 'cors'
-
-import dotenv from 'dotenv';
-dotenv.config()
 
 const PORT = process.env.PORT || 3000
 
@@ -25,7 +26,7 @@ app.get('/ping', (req, res) => {
 
 app.get('/:code', redirectLink)
 
-app.use('/api', shortenerRouter)
+app.use('/api', shortenerRouter, mailRouter)
 
 app.listen(PORT, () => {
     console.log('Servidor corriendo en el puerto', PORT)
